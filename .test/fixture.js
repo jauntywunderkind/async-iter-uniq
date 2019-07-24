@@ -1,4 +1,6 @@
 "use module"
+import immediate from "async-iter-immediate"
+
 export const
   a= { a: 1},
   a2= { a: 1},
@@ -59,7 +61,13 @@ export async function * fixture(){
 	step= 8
 	return 42
 }
-
-function getValue( i){
-	return i.value
+export function *immediate(){
+	return makeImmediate( fixture)
+}
+export {
+	fixture as default,
+	fixture as Fixture,
+	immediate as Immediate,
+	immediate as immediateFixture,
+	immediate as ImmediateFixture
 }
