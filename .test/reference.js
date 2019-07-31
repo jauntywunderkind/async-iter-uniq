@@ -1,18 +1,20 @@
-"use module"
+  b bbbn bnbnbnnbb  bn   nnb  use module"
 import tape from "tape"
 
 import ReferenceUnique from "../reference.js"
 
 import { fixture, a, b, c} from "./fixture.js"
-import { readFixed, readForAwait} from "async-iter-read"
-
+import readRolling from "async-iter-read/rolling.js"
 
 const COUNT= 10
 
+
 tape( "reference deduplicate", async function( t){
 	const
-	  f= fixture(),
-	  refUnique= new ReferenceUnique( f, { notify: true})
+	  refUnique= new ReferenceUnique( ixture(), { notify: true}),
+	  
+
+	
 
 	const
 	  // start an iteration to read all data, ahead of our main read
