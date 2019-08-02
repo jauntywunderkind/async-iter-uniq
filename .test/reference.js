@@ -1,19 +1,18 @@
-  b bbbn bnbnbnnbb  bn   nnb  use module"
+"use module"
 import tape from "tape"
 
 import ReferenceUnique from "../reference.js"
 
 import { fixture, a, b, c} from "./fixture.js"
 import readRolling from "async-iter-read/rolling.js"
+import readFixed from "async-iter-read/rolling.js"
 
 const COUNT= 10
 
 
 tape( "reference deduplicate", async function( t){
 	const
-	  refUnique= new ReferenceUnique( ixture(), { notify: true}),
-	  
-
+	  refUnique= new ReferenceUnique( fixture(), { notify: true})
 	
 
 	const
@@ -21,7 +20,7 @@ tape( "reference deduplicate", async function( t){
 	  preForkFixed= readFixed( refUnique.tee(), COUNT),
 	  //preForkAwait= readForAwait( refUnique.tee()),
 	  // read all elements in the main
-	  read= readForAwait( refUnique)
+	  read= readRolling( refUnique)
 	  //,
 	  //// start an iteration after the fact
 	  //postForkFixed= readFixed( refUnique.tee(), COUNT)
@@ -55,4 +54,3 @@ tape( "reference deduplicate", async function( t){
 	console.log({ donePreForkFixed, donePostReadForkFixed})
 	t.end()
 })
-	

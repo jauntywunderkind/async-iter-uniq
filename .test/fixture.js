@@ -1,5 +1,5 @@
 "use module"
-import immediate from "async-iter-immediate"
+import { makeImmediate} from "async-iter-immediate"
 
 export const
   a= { a: 1},
@@ -18,13 +18,7 @@ export function getStep(){
 	return step
 }
 
-/**
-* By value:
-*   a, b, c
-* By reference:
-*   a, a, b, b, c, c a
-*/
-export async function * fixture(){
+export function * fixture(){
 	step= 0
 	yield a // yield a
 	yield a
@@ -61,8 +55,8 @@ export async function * fixture(){
 	step= 8
 	return 42
 }
-export function *immediate(){
-	return makeImmediate( fixture)
+export async function * immediate(){
+	yield* makeImmediate( fixture)()
 }
 export {
 	fixture as default,
