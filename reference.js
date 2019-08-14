@@ -1,10 +1,10 @@
 "use module"
-import BaseAsyncIterPersist from "./base.js"
+import BaseAsyncIterUnique from "./base.js"
 
 /**
 * Pass through an async or sync iteration, deduplicating, by using a WeakSet to store items that we've seen.
 */
-export class ReferenceUnique extends BaseAsyncIterPersist{
+export class ReferenceUnique extends BaseAsyncIterUnique{
 	constructor( wrappedIterator, opts){
 		super( wrappedIterator, opts)
 		if( opts&& opts.filter){

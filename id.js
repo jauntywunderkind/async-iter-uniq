@@ -1,5 +1,5 @@
 "use module"
-import AsyncIterPersist from "async-iter-persist"
+import BaseAsyncIterUnique from "./base.js"
 import { ValueEqual} from "./equal.js"
 
 /**
@@ -9,10 +9,11 @@ import { ValueEqual} from "./equal.js"
 * This is an optimization of the "value" strategy, for cases where elements
 * can synthesize a unique-ifying id.
 */
-export class IdUnique extends AsyncIterPersist{
+export class IdUnique extends BaseAsyncIterUnique{
 	static makeGetId( property= "id"){
-		function getId(){
+		function getId( item){
 			if( !item|| !item.id){
+				console.log({item})
 				const err= new Error("item did not have id")
 				err.item= item
 				throw err
@@ -41,12 +42,12 @@ export class IdUnique extends AsyncIterPersist{
 		}
 	}
 	has( value){
-		const id= this.getId( iter.value)
+		const id= this.getId( value)
 		if( !id){
 			return false
 		}
 		const existing= this.ids[ id]
-		return this.equal( iter, existing)
+		return this.equal( value, existing)
 	}
 	push( item){
 		super.push( item)

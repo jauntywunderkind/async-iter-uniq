@@ -1,11 +1,11 @@
 "use module"
-import AsyncIterPersist from "async-iter-persist"
+import BaseAsyncIterUnique from "./base.js"
 import { ValueEqual} from "./equal.js"
 
 /**
 * Pass-through an async or sync iteration, de-duplicating by comparing each new item with all previous items via a deep-equal.
 */
-export class ValueUnique extends AsyncIterPersist{
+export class ValueUnique extends BaseAsyncIterUnique{
 	constructor( wrappedIterator, options){
 		super( wrappedIterator, options)
 		if( options){

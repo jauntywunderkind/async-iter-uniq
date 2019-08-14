@@ -2,13 +2,13 @@
 import { makeImmediate} from "async-iter-immediate"
 
 export const
-  a= { a: 1},
-  a2= { a: 1},
-  a3= { a: 1},
-  b= { b: 2},
-  b2= { b: 2},
-  c= { c: 3},
-  c2= { c: 3}
+  a= { a: 1, id: "a"},
+  a2= { a: 1, id: "a"},
+  aChanged= { a: 99, id: "a"},
+  b= { b: 2, id: "b"},
+  b2= { b: 2, id: "b"},
+  c= { c: 3, id: "c"},
+  c2= { c: 3, id: "c"}
 
 export let step= -1
 
@@ -44,9 +44,13 @@ export function * fixture(){
 	step= 5
 	yield c2
 
-	// for good measure, another value copy of a
-	step= 6
-	yield a3
+	// change a
+	yield aChanged
+
+	// for good measure, re-emit earlier a's
+	step= 7
+	yield a
+	yield a2
 }
 export async function * immediate(){
 	yield* makeImmediate( fixture)()

@@ -28,6 +28,9 @@ export class BaseAsyncIterUniq extends AsyncIterPersist{
 		if( !iter){
 			return
 		}
+		if( iter.done){
+			return iter
+		}
 
 		// deduplicate
 		if( this.has( iter.value)){

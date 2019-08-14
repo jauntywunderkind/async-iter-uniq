@@ -13,11 +13,10 @@ const expected= [
 	F.b2,
 	F.c,
 	F.c2,
-	F.a3
+	F.aChanged
 ]
 
 tape( "reference deduplicate", async function( t){
-	console.log( expected)
 	const
 	  refUnique= new ReferenceUnique( F.fixture(), { notify: true}),
 	  expect= new Expect( refUnique, expected),
