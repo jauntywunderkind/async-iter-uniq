@@ -1,56 +1,27 @@
 "use module"
 import tape from "tape"
+import Expect from "async-iter-expect"
 
 import ReferenceUnique from "../reference.js"
 
-import { fixture, a, b, c} from "./fixture.js"
-import readRolling from "async-iter-read/rolling.js"
-import readFixed from "async-iter-read/rolling.js"
+import * as F from "./fixture.js"
 
-const COUNT= 10
-
+const expected= [
+	F.a,
+	F.a2,
+	F.b,
+	F.b2,
+	F.c,
+	F.c2,
+	F.a3
+]
 
 tape( "reference deduplicate", async function( t){
+	console.log( expected)
 	const
-	  refUnique= new ReferenceUnique( fixture(), { notify: true})
-	
-
-	const
-	  // start an iteration to read all data, ahead of our main read
-	  preForkFixed= readFixed( refUnique.tee(), COUNT),
-	  //preForkAwait= readForAwait( refUnique.tee()),
-	  // read all elements in the main
-	  read= readRolling( refUnique)
-	  //,
-	  //// start an iteration after the fact
-	  //postForkFixed= readFixed( refUnique.tee(), COUNT)
-	  //,
-	  //postForkAwait= readForAwait( refUnique.tee())
-
-	const
-	  // wait for main read to finish
-	  doneRead= await read
-	  //// start another read
-
-
-	console.log("=======")
-	console.log()
-	const
-	  postReadForkFixed= readFixed( refUnique.tee(), COUNT),
-	  //postReadForkAwait= readForAwait( refUnique.tee()),
-	  //// wait for iterations to finish
-	  donePreForkFixed= await preForkFixed,
-	  //donePreForkAwait= await preForkAwait,
-	  //donePostForkFixed= await postForkFixed
-	  //,
-	  //donePostForkAwait= await postForkAwait,
-	  donePostReadForkFixed= await postReadForkFixed
-	  //,
-	  //donePostReadForkAwait= await postReadForkAwait
-
-	//console.log({ doneRead, donePreForkFixed, donePreForkAwait, donePostForkFixed, donePostForkAwait, donePostReadForkFixed, donePostForkAwait})
-	//console.log({donePreForkAwait, doneRead})
-	//console.log({donePreForkFixed, donePostForkFixed})
-	console.log({ donePreForkFixed, donePostReadForkFixed})
+	  refUnique= new ReferenceUnique( F.fixture(), { notify: true}),
+	  expect= new Expect( refUnique, expected),
+	  done= await expect
+	t.equal( done.count, expected.length, "got all expected")
 	t.end()
 })

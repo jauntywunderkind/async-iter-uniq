@@ -14,16 +14,12 @@ export class ValueUnique extends AsyncIterPersist{
 			}
 		}
 	}
-	filter( iter){
-		if( !iter){
-			return
-		}
+	has( value){
 		for( let existing of this.state){
-			if( this.equal( iter.value, existing)){
-				return
+			if( this.equal( value, existing)){
+				return true
 			}
 		}
-		return iter
 	}
 }
 ValueUnique.prototype.equal= ValueEqual

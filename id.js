@@ -25,7 +25,7 @@ export class IdUnique extends AsyncIterPersist{
 
 	constructor( wrappedIterator, options){
 		super( wrappedIterator, options)
-		if( !options){
+		if( options){
 			if( options.equal!== undefined){
 				this.equal= options.equal
 			}
@@ -34,19 +34,19 @@ export class IdUnique extends AsyncIterPersist{
 			}else if( options.idProperty){
 				this.getId= IdUnique.makeGetId( options.idProperty)
 			}
+			if( options.filter){
+				this[ $filter]= options.filter
+				delete this.filter
+			}
 		}
 	}
-	filter( iter){
-		if( !iter){
-			return
+	has( value){
+		const id= this.getId( iter.value)
+		if( !id){
+			return false
 		}
-		const
-		  id= this.getId( iter.value),
-		  existing= this.ids[ id]
-		if( this.equal!== undefined&& this.equal( iter, existing)){
-			return
-		}
-		return iter
+		const existing= this.ids[ id]
+		return this.equal( iter, existing)
 	}
 	push( item){
 		super.push( item)

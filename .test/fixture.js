@@ -5,7 +5,6 @@ export const
   a= { a: 1},
   a2= { a: 1},
   a3= { a: 1},
-  aChanged= { a: -1},
   b= { b: 2},
   b2= { b: 2},
   c= { c: 3},
@@ -48,12 +47,6 @@ export function * fixture(){
 	// for good measure, another value copy of a
 	step= 6
 	yield a3
-
-	step= 7
-	yield aChanged
-
-	step= 8
-	return 42
 }
 export async function * immediate(){
 	yield* makeImmediate( fixture)()
