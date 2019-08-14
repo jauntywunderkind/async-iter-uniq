@@ -13,8 +13,8 @@ export class ReferenceUnique extends BaseAsyncIterUnique{
 		}
 	}
 	push( newItem){
-		super.push( newItem)
 		this.weakSet.add( newItem)
+		return super.push( newItem)
 	}
 	has( value){
 		return this.weakSet.has( value)

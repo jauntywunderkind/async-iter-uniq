@@ -50,9 +50,9 @@ export class IdUnique extends BaseAsyncIterUnique{
 		return this.equal( value, existing)
 	}
 	push( item){
-		super.push( item)
 		const id= this.getId( item)
 		this.ids[ id]= item
+		return super.push( item)
 	}
 	clearState(){
 		super.clearState()

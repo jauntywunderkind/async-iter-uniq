@@ -47,5 +47,12 @@ export class BaseAsyncIterUniq extends AsyncIterPersist{
 
 		return iter
 	}
+
+	push( item){
+		if( this.markSet){
+			this.markSet.add( item)
+		}
+		return super.push( item)
+	}
 }
 export default BaseAsyncIterUniq
